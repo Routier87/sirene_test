@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<audio id="sirene" src="sirene_test.ogg"></audio>
+
+<script>
+window.addEventListener('message', function(event) {
+    if (event.data.action === "play") {
+        let s = document.getElementById("sirene");
+        s.volume = 1.0;
+        s.currentTime = 0;
+        s.play();
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tornado Alert</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { 
+            background: transparent; 
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .alert-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            display: none;
+        }
+        
+        .alert-box {
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 5px solid #ff0000;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        .alert-title {
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .alert-message {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .alert-category {
+            font-weight: bold;
+            margin-top: 5px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="alertContainer" class="alert-container"></div>
+    
+    <script>
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            
+            if (data.action === 'showAlert') {
+                showAlert(data.category, data.message, data.color);
+            }
+            
+            if (data.action === 'hideAlert') {
+                hideAlert();
+            }
+        });
+        
+        function showAlert(category, message, color) {
+            const container = document.getElementById('alertContainer');
+            
+            container.innerHTML = `
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ALERTE TORNADE</div>
+                    <div class="alert-message">${message}</div>
+                    <div class="alert-category" style="background: ${color}">${category}</div>
+                </div>
+            `;
+            
+            container.style.display = 'block';
+            
+            // Auto-hide après 30 secondes
+            setTimeout(() => {
+                hideAlert();
+            }, 30000);
+        }
+        
+        function hideAlert() {
+            const container = document.getElementById('alertContainer');
+            container.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

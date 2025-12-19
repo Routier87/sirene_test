@@ -1,0 +1,13 @@
+/* Style minimal pour les alertes */
+body {
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#alertContainer {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    width: 300px;
+    z-index: 9999;
+}
